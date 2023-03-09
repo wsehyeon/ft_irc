@@ -1,3 +1,8 @@
+/.vscode
+/bircd
+a.out.dSYM
+ircserv
+
 # Prerequisites
 *.d
 
