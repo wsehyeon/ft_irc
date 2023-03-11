@@ -1,6 +1,7 @@
 /.vscode
 /bircd
 a.out.dSYM
+ircserv.dSYM
 ircserv
 
 # Prerequisites

@@ -23,42 +23,41 @@ class Logger;
 
 class Logger {
 private:
-	static Logger *_logger;
+	Logger & operator=(Logger & copy);
+	Logger(Logger & copy);
+
+	static Logger*_logger;
+
 	std::vector<char *> input;
 	std::vector<char *> output;
+	
 	pthread_mutex_t key;
 public:
-	Logger(){
-		_logger = NULL;
-		pthread_mutex_init(&key, 0);
-	}
-	static Logger * getInstance(){
+	Logger();
+	~Logger();
+	static Logger* getInstance(){
 		if (_logger == NULL)
 			_logger = new Logger();
 		return _logger;
 	}
-	void insert(char *buf){
-		pthread_mutex_lock(&key);
-		input.push_back(buf);
-		pthread_mutex_unlock(&key);
-	}
-	void swap(){
-		pthread_mutex_lock(&key);
-		input.swap(output);
-		pthread_mutex_unlock(&key);
-	}
+	
+	void insert(char *buf);
+	// void swap();
+	
 	static void *flush(void *arg){
+		Logger * _this = static_cast<Logger*>(arg);
 		while (true){
-			for (std::vector<char *>::iterator it = output.begin(); it != output.end(); ++it){
-				std::cout << *it;
+			for (std::vector<char *>::iterator it = _this->output.begin(); it != _this->output.end(); ++it){
+				std::cout << "Logging..." << *it;
 			}
-			output.clear();
-			pthread_mutex_lock(&key);
-			input.swap(output);
-			pthread_mutex_unlock(&key);
+			_this->output.clear();
+			pthread_mutex_lock(&_this->key);
+			// std::cout << "Logging swap...\n"; // too many print
+			_this->input.swap(_this->output);
+			pthread_mutex_unlock(&_this->key);
 		}
 		return arg;
-	}
+	};
 };
 
 #endif

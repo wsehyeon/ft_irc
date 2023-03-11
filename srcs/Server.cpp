@@ -51,11 +51,11 @@ Server::~Server(){
 }
 
 void Server::running(){
-	
 	_serverFile = new Serverfile(_serverFd);
-	_serverFile->setEvent(_serverFd, READ, EV_ADD, _changeList);
+	struct kevent e;;
+	EV_SET(&e, _serverFd, EVFILT_READ, EV_ADD, 0,0,0);
+	_changeList.push_back(e);
 	_events.insert(std::make_pair(_serverFd, _serverFile));
-	//Q. udata에 자기 자신을 넣나?
 
 	struct kevent eventList[MAX_EVENTS];
 	struct kevent current;

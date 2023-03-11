@@ -8,8 +8,8 @@ class Clientfile : public Eventfile {
 private:
 	Client _client;
 	std::string buffer;
-public:
 	Clientfile();
+public:
 	~Clientfile();
 	Clientfile(int);
 	void on_read(change_list &, event_list &);

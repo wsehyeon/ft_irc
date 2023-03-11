@@ -2,6 +2,7 @@
 #include "../includes/Logger.hpp"
 
 Server Server::_server;
+Logger* Logger::_logger = NULL;
 
 int main(int ac, char **av){
 	Server& server = Server::getInstance();
@@ -10,7 +11,7 @@ int main(int ac, char **av){
 	if (ac != 3)
 		std::cerr << "check argument\nUsage: ./ircserv <port> <password>" << std::endl;
 	try{
-		pthread_create(&logging, NULL, ???, NULL);
+		pthread_create(&logging, NULL, Logger::flush, logger);
 		server.opening(av[1]);
 		server.running();
 	}

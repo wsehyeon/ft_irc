@@ -35,13 +35,14 @@ private:
 	int _serverFd;
 	Eventfile * _serverFile;
 	std::string _password;
+	
 	std::map<int, Eventfile *> _events;
 	std::map<std::string, Channel *> _channels;
+	std::map<std::string, Client *> _clients;
+
 	std::vector<struct kevent> _changeList;
 
 	// Invoker _invoker;
-	// Logger _logger;
-	// MessageHandler _msgHandler;
 
 	Server & operator=(const Server &copy);
 	Server(Server &copy);
