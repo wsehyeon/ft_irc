@@ -24,7 +24,7 @@ class Invoker;
 class Logger;
 class Channel;
 class Client;
-class Eventfile;
+class AEventfile;
 
 class Server {
 
@@ -33,10 +33,10 @@ private:
 	
 	int _kqFd;
 	int _serverFd;
-	Eventfile * _serverFile;
+	AEventfile * _serverFile;
 	std::string _password;
 	
-	std::map<int, Eventfile *> _events;
+	std::map<int, AEventfile *> _events;
 	std::map<std::string, Channel *> _channels;
 	std::map<std::string, Client *> _clients;
 
@@ -57,7 +57,7 @@ public:
 	static Server & getInstance();
 
 	const std::string & getPassword() const;
-	const std::map<int, Eventfile *> & getEvents() const;
+	const std::map<int, AEventfile *> & getEvents() const;
 	const std::map<std::string, Channel *> & getChannels() const;
 	const std::vector<struct kevent> & getChangeList() const;
 

@@ -4,7 +4,7 @@
 #include <map>
 
 
-Serverfile::Serverfile(int fd) : Eventfile(fd){
+Serverfile::Serverfile(int fd) : AEventfile(fd){
 };
 
 void Serverfile::on_read(change_list &ch, event_list &events){

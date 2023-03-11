@@ -4,9 +4,9 @@
 #include "../includes/AEventfile.hpp"
 #include "../includes/Client.hpp"
 
-class Clientfile : public Eventfile {
+class Clientfile : public AEventfile {
 private:
-	Client _client;
+	Client * _client;
 	std::string buffer;
 	Clientfile();
 public:

@@ -6,7 +6,7 @@
 
 class Server;
 
-class Serverfile : public Eventfile{
+class Serverfile : public AEventfile{
 
 private:
 	Serverfile();

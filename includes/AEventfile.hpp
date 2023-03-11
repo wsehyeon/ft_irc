@@ -4,18 +4,18 @@
 #include <vector>
 #include "../includes/Server.hpp"
 
-class Eventfile{
+class AEventfile{
 private:
-	Eventfile & operator=(const Eventfile & copy);
-	Eventfile(const Eventfile & copy);
-	Eventfile();
+	AEventfile & operator=(const AEventfile & copy);
+	AEventfile(const AEventfile & copy);
+	AEventfile();
 protected:
 	typedef std::vector<struct kevent> change_list;
-	typedef std::map<int,Eventfile *> event_list;
+	typedef std::map<int,AEventfile *> event_list;
 	int _fd;
 public:
-	Eventfile(int);
-	virtual ~Eventfile();
+	AEventfile(int);
+	virtual ~AEventfile();
 	virtual void on_read(change_list &, event_list &) = 0;
 	virtual void on_write() = 0;
 	const int & getFd() const;

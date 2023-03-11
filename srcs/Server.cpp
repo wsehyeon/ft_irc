@@ -66,10 +66,8 @@ void Server::running(){
 			current = eventList[idx];
 			if (current.filter == EVFILT_READ)
 				_events.find(current.ident)->second->on_read(_changeList, _events);
-				// staitc_cast<Eventfile *>(current.udata).on_read();
 			else if (current.filter == EVFILT_WRITE)
 				_events.find(current.ident)->second->on_write();
-				// staitc_cast<Eventfile *>(current.udata).on_write();
 		}
 		// close_sequence();
 	}
@@ -80,6 +78,6 @@ Server & Server::getInstance(){
 }
 
 const std::string & Server::getPassword() const { return (_password); }
-const std::map<int, Eventfile *> & Server::getEvents() const { return (_events); }
+const std::map<int, AEventfile *> & Server::getEvents() const { return (_events); }
 const std::map<std::string, Channel *> & Server::getChannels() const { return (_channels); }
 const std::vector<struct kevent> & Server::getChangeList() const { return (_changeList); }

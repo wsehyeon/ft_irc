@@ -1,21 +1,21 @@
 #include "../includes/AEventfile.hpp"
 
-Eventfile::Eventfile(int fd){
+AEventfile::AEventfile(int fd){
 	_fd = fd;
 }
 
-Eventfile::Eventfile(){
+AEventfile::AEventfile(){
 	
 }
 
-Eventfile::~Eventfile(){
+AEventfile::~AEventfile(){
 
 }
 
-Eventfile & Eventfile::operator=(const Eventfile & copy){
+AEventfile & AEventfile::operator=(const AEventfile & copy){
 	return *this;
 }
 
 
-const int & Eventfile::getFd() const { return (_fd); };
+const int & AEventfile::getFd() const { return (_fd); };
 
