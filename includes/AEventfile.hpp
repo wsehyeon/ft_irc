@@ -1,8 +1,9 @@
-#ifndef __IEVENTFILE_HPP__
-# define __IEVENTFILE_HPP__
+#ifndef __AEVENTFILE_HPP__
+# define __AEVENTFILE_HPP__
 
+#include <iostream>
 #include <vector>
-#include "../includes/Server.hpp"
+#include <map>
 
 class AEventfile{
 private:
@@ -11,7 +12,7 @@ private:
 	AEventfile();
 protected:
 	typedef std::vector<struct kevent> change_list;
-	typedef std::map<int,AEventfile *> event_list;
+	typedef std::map<int, AEventfile *> event_list;
 	int _fd;
 public:
 	AEventfile(int);
