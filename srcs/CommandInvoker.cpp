@@ -1,8 +1,9 @@
 #include "../includes/CommandInvoker.hpp"
+#include <utility>
 
 CommandInvoker::CommandInvoker()
 {
-
+    _commandMap.insert(std::make_pair("PRIVMSG", new PrivMsg()));
 }
 
 CommandInvoker::CommandInvoker(const CommandInvoker&){}

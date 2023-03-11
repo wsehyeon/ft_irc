@@ -5,6 +5,7 @@
 #include <map>
 
 #include "ICommand.hpp"
+#include "PrivMsg.hpp"
 
 class CommandInvoker
 {
