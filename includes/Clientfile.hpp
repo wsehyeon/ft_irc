@@ -7,6 +7,7 @@
 class Clientfile : public Eventfile {
 private:
 	Client _client;
+	std::string buffer;
 public:
 	Clientfile();
 	~Clientfile();

@@ -6,4 +6,4 @@ SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 
 
 all:
-	c++ -g $(SRCS) 
+	c++ -g -I./includes/ $(SRCS) 

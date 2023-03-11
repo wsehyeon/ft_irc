@@ -14,8 +14,9 @@ private:
 
 protected:
 	Eventfile();
-	typedef std::vector<struct kevent> change_list;
-	typedef std::map<int, Eventfile *>  event_list;
+	// 생성할때 초기화 하면 on_read() 같은곳에서 매개변수로 안 받아도 되지 않을까??
+	typedef std::vector<struct kevent> &change_list;
+	typedef std::map<int, Eventfile *>  &event_list;
 	int _fd;
 
 public:
