@@ -35,29 +35,12 @@ private:
 public:
 	Logger();
 	~Logger();
-	static Logger* getInstance(){
-		if (_logger == NULL)
-			_logger = new Logger();
-		return _logger;
-	}
+	static Logger* getInstance();
 	
 	void insert(char *buf);
 	// void swap();
 	
-	static void *flush(void *arg){
-		Logger * _this = static_cast<Logger*>(arg);
-		while (true){
-			for (std::vector<char *>::iterator it = _this->output.begin(); it != _this->output.end(); ++it){
-				std::cout << "Logging..." << *it;
-			}
-			_this->output.clear();
-			pthread_mutex_lock(&_this->key);
-			// std::cout << "Logging swap...\n"; // too many print
-			_this->input.swap(_this->output);
-			pthread_mutex_unlock(&_this->key);
-		}
-		return arg;
-	};
+	static void *flush(void *arg);
 };
 
 #endif
