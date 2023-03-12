@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <pthread.h>
+#include <vector>
 
 // normal
 # define N "\033[0m"
@@ -18,8 +19,6 @@
 
 // server msg
 # define B "\033[34m" 
-
-class Logger;
 
 class Logger {
 private:

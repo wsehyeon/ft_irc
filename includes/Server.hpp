@@ -12,7 +12,8 @@
 #include <sys/socket.h>
 #include <sys/event.h>
 
-#include "../includes/AEventfile.hpp"
+#include "AEventfile.hpp"
+#include "CommandInvoker.hpp"
 
 # define BACKLOG 42
 # define MAX_EVENTS 100
@@ -20,11 +21,9 @@
 # define WIRTE -2
 
 class MessageHandler;
-class Invoker;
 class Logger;
 class Channel;
 class Client;
-class AEventfile;
 
 class Server {
 
@@ -42,7 +41,7 @@ private:
 
 	std::vector<struct kevent> _changeList;
 
-	// Invoker _invoker;
+    CommandInvoker _invoker;
 
 	Server & operator=(const Server &copy);
 	Server(Server &copy);
@@ -51,7 +50,7 @@ public:
 	Server();
 	~Server();
 	
-	void opening(char *port);
+	void opening(const char *port, const char *pswd);
 	void running();
 
 	static Server & getInstance();

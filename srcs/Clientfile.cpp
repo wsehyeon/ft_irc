@@ -1,3 +1,4 @@
+#include "../includes/Server.hpp"
 #include "../includes/Clientfile.hpp"
 #include "../includes/Logger.hpp"
 

@@ -12,7 +12,7 @@ int main(int ac, char **av){
 		std::cerr << "check argument\nUsage: ./ircserv <port> <password>" << std::endl;
 	try{
 		pthread_create(&logging, NULL, Logger::flush, logger);
-		server.opening(av[1]);
+		server.opening(av[1], av[2]);
 		server.running();
 	}
 	catch(const char *msg){
