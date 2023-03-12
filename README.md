@@ -1,23 +1,54 @@
 # ft_irc
 
+### 간단 관계도
 ```mermaid
 classDiagram
+
+Server o-- Channel
+Channel o--o Client
+
+Server o-- AEventfile
+AEventfile <|-- Serverfile
+AEventfile <|-- Clientfile
+Clientfile *-- Client
+Server o-- Client
+
+class Logger
+
+
+CommandInvoker *-- ICommand
+ICommand <|-- Nick
+ICommand <|-- PrivMsg
+ICommand <|-- Join
+ICommand <|-- etc
+```
+
+
+### 서버 주요 관계도  
+```mermaid
+classDiagram
+
 Server "1" o-- "0..*" Channel
+
 ClientFile "1" *-- "1" Client 
+Server "1" o-- "0..*" AEventFile
+AEventFile <|-- ServerFile
+AEventFile <|-- ClientFile
 
-EventFile --o Server
-EventFile <|-- ClientFile
-EventFile <|-- ServerFile
+Server "1" o-- "0..*" Client
 
-Logger "1"--*"1" Server
-Strhdlr "1"--*"1" Server
+Channel o--o Client
 
-class Logger{
-    - vector<String> output_queue
-    - vector<String> input_queue
-    + flush()
-    + getInputQueue() const & input_queue
+class Client{
+    - const int fd
+    - String nickname
+    - String buffer
+    - char flag
+    - map<String, Channel *> joinedChannels
+    + getter() const &
+    + setter()...
 }
+
 class Server{
     - static Server server
     - int kq_fd
@@ -25,62 +56,52 @@ class Server{
     - String password
     - map<int, EventFile *> events
     - map<String, Channel *> channels
+    - map<String, Client *> clients
     - vector<kevent> changeList
 
-    - Invocker
-    - Logger
-    - Strhdlr
+    - CommandInvocker
 
-    - close_sequance()
-    + setting()
-    + run()
-    + getInstance()$ const & server
+    + getInstance()$ Server &
+
+    + openning()
+    + running()
+    + closing()
+
     + getter() const &
-    + setter()...
+    + setter()
 }
-class EventFile{
+
+class Channel{
+    - const String channelname
+    - map<fd, Client *> joinedClients
+    - int operatorFd
+    + getter() const &
+    + setter()
+}
+
+class Logger{
+    - vector<String> output
+    - vector<String> input
+    + getInstance()$ Logger *
+    + insert()
+    + flush()$
+}
+
+class AEventFile{
     <<abstract>>
-    - String msg
-    - bool on_read
-    - bool on_write
+    # int fd
     + virtual on_read() = 0
     + virtual on_write() = 0
 }
 class ClientFile{
     - Client
+    - String msg
     + on_read()
     + on_write()
 }
 class ServerFile{
-    - Server server
     + on_read()
     + on_write()
 }
-class Client{
-    - const int fd
-    - String nickname
-    - String buffer
-    - char flag
-    - map<String, Channel *> joinedChannels
-    + getJoinedList() const & joinedChannels
-    + getNickname() const & nickname
-    + getBuffer() const & buffer
-    + getFlag() const & flag
-    + getFd() const & fd
-    + setter()...
-}
-class Channel{
-    - const String channelname
-    - map<fd, Client *> joinedClients
-    - int operatorFd
-    + getChannelname() const & channelname
-    + getJoinedClients() const & joinedClients
-    + getOperatorFd() const & operatorFd
-    + setter()...
 
-}
-
-class Strhdlr{
-+ 문자열 조작 함수들()
-}
 ```
