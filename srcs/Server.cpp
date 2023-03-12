@@ -13,9 +13,11 @@ Server::Server(Server &copy){
 	// *this = copy.getInstance();
 }
 
-void Server::opening(char *port){
+void Server::opening(const char *port, const char *pswd){
 	struct sockaddr_in address;
 	int sock_opt = 1;
+
+    _password = pswd;
 
 	if ((_kqFd = kqueue()) <= 0)
 		throw "kqeue() error";
@@ -52,7 +54,7 @@ Server::~Server(){
 
 void Server::running(){
 	_serverFile = new Serverfile(_serverFd);
-	struct kevent e;;
+	struct kevent e;
 	EV_SET(&e, _serverFd, EVFILT_READ, EV_ADD, 0,0,0);
 	_changeList.push_back(e);
 	_events.insert(std::make_pair(_serverFd, _serverFile));

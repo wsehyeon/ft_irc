@@ -50,7 +50,7 @@ public:
 	Server();
 	~Server();
 	
-	void opening(char *port);
+	void opening(const char *port, const char *pswd);
 	void running();
 
 	static Server & getInstance();
